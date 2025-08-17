@@ -8,10 +8,22 @@ import teamRaghav from "@/assets/team-raghav.jpg";
 const TeamSection = () => {
   const teamMembers = [
     {
-      name: "Shivam",
-      role: "Lead Health Technology Specialist",
+      name: "Yash Gupta",
+      role: "Main Developer",
       image: teamShivam,
-      bio: "Expert in health data analytics and AI-driven wellness solutions. Leading the development of innovative health tracking technologies.",
+      bio: "Lead developer and architect behind VitalityFolio. Expert in full-stack development, health technology, and system design.",
+      specialties: ["Full-Stack Development", "Health Technology", "System Architecture"],
+      social: {
+        linkedin: "#",
+        email: "yashgupta72003@gmail.com",
+        twitter: "#"
+      }
+    },
+    {
+      name: "Shivam",
+      role: "Team Member",
+      image: teamShivam,
+      bio: "Health technology specialist contributing to AI-driven wellness solutions and innovative health tracking technologies.",
       specialties: ["Health AI", "Data Analytics", "Wellness Tech"],
       social: {
         linkedin: "#",
@@ -21,10 +33,10 @@ const TeamSection = () => {
     },
     {
       name: "Harshit Gupta",
-      role: "Senior Healthcare Developer",
+      role: "Team Member",
       image: teamHarshit,
-      bio: "Full-stack developer specializing in healthcare applications and secure medical data management systems.",
-      specialties: ["Healthcare Systems", "Data Security", "Full-Stack Development"],
+      bio: "Healthcare developer specializing in secure medical data management and healthcare application development.",
+      specialties: ["Healthcare Systems", "Data Security", "Frontend Development"],
       social: {
         linkedin: "#",
         email: "harshit@vitalityfolio.com",
@@ -33,9 +45,9 @@ const TeamSection = () => {
     },
     {
       name: "Raghav Sharma",
-      role: "Medical Technology Consultant",
+      role: "Team Member",
       image: teamRaghav,
-      bio: "Medical professional with expertise in digital health solutions and patient care optimization through technology.",
+      bio: "Medical technology consultant with expertise in digital health solutions and patient care optimization.",
       specialties: ["Digital Health", "Patient Care", "Medical Consulting"],
       social: {
         linkedin: "#",

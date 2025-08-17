@@ -33,7 +33,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group">
+              <Button variant="hero" size="lg" className="group" onClick={() => window.location.href = '/dashboard'}>
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -42,22 +42,6 @@ const HeroSection = () => {
                 <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
                 Watch Demo
               </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-8 pt-8 border-t border-border">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-foreground">10k+</div>
-                <div className="text-sm text-muted-foreground">Active Users</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-foreground">50M+</div>
-                <div className="text-sm text-muted-foreground">Health Records</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-foreground">99.9%</div>
-                <div className="text-sm text-muted-foreground">Uptime</div>
-              </div>
             </div>
           </div>
 

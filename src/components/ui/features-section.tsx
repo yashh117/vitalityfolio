@@ -91,10 +91,16 @@ const FeaturesSection = () => {
               Join thousands of users who have already started their wellness journey with VitalityFolio's comprehensive health platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-3 bg-gradient-to-r from-primary to-primary-glow text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <button 
+                onClick={() => window.location.href = '/dashboard'}
+                className="px-8 py-3 bg-gradient-to-r from-primary to-primary-glow text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+              >
                 Start Your Journey
               </button>
-              <button className="px-8 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300">
+              <button 
+                onClick={() => window.location.href = '/about'}
+                className="px-8 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300"
+              >
                 Learn More
               </button>
             </div>
