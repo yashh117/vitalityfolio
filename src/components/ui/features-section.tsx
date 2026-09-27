@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Activity, Heart, Target, BarChart3, Shield, Clock, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const FeaturesSection = () => {
+  const navigate = useNavigate();
   const features = [
     {
       icon: Activity,
@@ -103,7 +105,7 @@ const FeaturesSection = () => {
                 variant="hero"
                 size="lg"
                 className="group"
-                onClick={() => window.location.href = '/dashboard'}
+                onClick={() => navigate('/dashboard')}
               >
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -111,7 +113,7 @@ const FeaturesSection = () => {
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => window.location.href = '/about'}
+                onClick={() => navigate('/about')}
               >
                 Learn More
               </Button>

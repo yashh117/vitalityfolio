@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-medical.jpg";
+import { useToast } from "@/hooks/use-toast";
 
 const stats = [
   { value: "10k+", label: "Active Users" },
@@ -9,6 +11,16 @@ const stats = [
 ];
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleWatchDemo = () => {
+    toast({
+      title: "Demo video coming soon",
+      description: "In the meantime, explore the live dashboard to see VitalityFolio in action.",
+    });
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden">
       {/* Background Elements */}
@@ -40,12 +52,12 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group shadow-[0_0_40px_hsl(var(--primary-glow)/0.4)]" onClick={() => window.location.href = '/dashboard'}>
+              <Button variant="hero" size="lg" className="group shadow-[0_0_40px_hsl(var(--primary-glow)/0.4)]" onClick={() => navigate('/dashboard')}>
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
 
-              <Button variant="outline" size="lg" className="group">
+              <Button variant="outline" size="lg" className="group" onClick={handleWatchDemo}>
                 <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
                 Watch Demo
               </Button>
@@ -74,14 +86,14 @@ const HeroSection = () => {
             </div>
 
             {/* Floating Cards */}
-            <div className="absolute -top-6 -right-6 glass p-4 rounded-xl shadow-lg animate-float">
+            <div className="absolute top-4 right-4 sm:-top-6 sm:-right-6 z-20 glass p-4 rounded-xl shadow-lg animate-float">
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium">Live Health Monitoring</span>
               </div>
             </div>
 
-            <div className="absolute -bottom-6 -left-6 glass p-4 rounded-xl shadow-lg animate-float [animation-delay:2s]">
+            <div className="absolute bottom-4 left-4 sm:-bottom-6 sm:-left-6 z-20 glass p-4 rounded-xl shadow-lg animate-float [animation-delay:2s]">
               <div className="text-2xl font-bold text-gradient">127 BPM</div>
               <div className="text-sm text-muted-foreground">Heart Rate</div>
             </div>

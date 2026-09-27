@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Linkedin, Mail, Twitter } from "lucide-react";
+import { Mail } from "lucide-react";
 import teamShivam from "@/assets/team-shivam.jpg";
 
 const founder = {
@@ -10,9 +10,7 @@ const founder = {
   bio: "I built VitalityFolio to make comprehensive health tracking simple, secure, and genuinely useful. I handle everything from product design and full-stack development to system architecture and health technology strategy.",
   specialties: ["Full-Stack Development", "Health Technology", "System Architecture"],
   social: {
-    linkedin: "#",
-    email: "yashgupta72003@gmail.com",
-    twitter: "#"
+    email: "yashgupta72003@gmail.com"
   }
 };
 
@@ -78,22 +76,10 @@ const TeamSection = () => {
 
                 <div className="flex justify-center md:justify-start space-x-3">
                   <a
-                    href={founder.social.linkedin}
-                    className="p-2 text-muted-foreground hover:text-primary transition-colors hover:bg-primary/10 rounded-full"
-                  >
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                  <a
                     href={`mailto:${founder.social.email}`}
                     className="p-2 text-muted-foreground hover:text-primary transition-colors hover:bg-primary/10 rounded-full"
                   >
                     <Mail className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={founder.social.twitter}
-                    className="p-2 text-muted-foreground hover:text-primary transition-colors hover:bg-primary/10 rounded-full"
-                  >
-                    <Twitter className="h-4 w-4" />
                   </a>
                 </div>
               </div>

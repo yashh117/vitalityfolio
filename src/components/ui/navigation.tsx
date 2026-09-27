@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { Menu, X, Activity } from "lucide-react";
@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -53,7 +54,7 @@ const Navigation = () => {
 
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
-            <Button variant="primary" size="sm" onClick={() => window.location.href = '/dashboard'}>
+            <Button variant="primary" size="sm" onClick={() => navigate('/dashboard')}>
               Get Started
             </Button>
           </div>
@@ -94,7 +95,7 @@ const Navigation = () => {
                 variant="primary"
                 size="sm"
                 className="w-full"
-                onClick={() => window.location.href = '/dashboard'}
+                onClick={() => navigate('/dashboard')}
               >
                 Get Started
               </Button>

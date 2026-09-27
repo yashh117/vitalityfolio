@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/ui/navigation";
 import ChatBot from "@/components/ui/chat-bot";
 import TeamSection from "@/components/ui/team-section";
@@ -15,6 +16,8 @@ import {
 } from "lucide-react";
 
 const About = () => {
+  const navigate = useNavigate();
+
   const values = [
     {
       icon: Heart,
@@ -201,11 +204,11 @@ const About = () => {
                 Join thousands of users who have transformed their health with VitalityFolio. Start tracking, analyzing, and optimizing your wellness today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="primary" size="lg">
+                <Button variant="primary" size="lg" onClick={() => navigate('/dashboard')}>
                   Get Started Free
                 </Button>
-                <Button variant="outline" size="lg">
-                  Contact Our Team
+                <Button variant="outline" size="lg" asChild>
+                  <a href="mailto:yashgupta72003@gmail.com">Contact Our Team</a>
                 </Button>
               </div>
             </CardContent>

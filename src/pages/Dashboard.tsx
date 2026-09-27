@@ -44,6 +44,13 @@ const Dashboard = () => {
     });
   };
 
+  const handleSetNewGoal = () => {
+    toast({
+      title: "Goal Created!",
+      description: "Your new health goal has been added to your dashboard.",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -336,7 +343,7 @@ const Dashboard = () => {
                     </div>
                   </div>
 
-                  <Button variant="primary" className="w-full">
+                  <Button variant="primary" className="w-full" onClick={handleSetNewGoal}>
                     Set New Goal
                   </Button>
                 </CardContent>
