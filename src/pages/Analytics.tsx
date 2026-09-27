@@ -2,14 +2,45 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/ui/navigation";
 import ChatBot from "@/components/ui/chat-bot";
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Activity, 
+import {
+  BarChart3,
+  TrendingUp,
+  Activity,
   Heart,
   Calendar,
   Award
 } from "lucide-react";
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const weeklyActivityData = [
+  { day: "Mon", steps: 7200, calories: 2400 },
+  { day: "Tue", steps: 8900, calories: 2650 },
+  { day: "Wed", steps: 6400, calories: 2200 },
+  { day: "Thu", steps: 9500, calories: 2800 },
+  { day: "Fri", steps: 10200, calories: 3050 },
+  { day: "Sat", steps: 11800, calories: 3300 },
+  { day: "Sun", steps: 9247, calories: 2847 },
+];
+
+const heartRateData = [
+  { day: "Mon", resting: 68, active: 132 },
+  { day: "Tue", resting: 70, active: 138 },
+  { day: "Wed", resting: 69, active: 128 },
+  { day: "Thu", resting: 71, active: 140 },
+  { day: "Fri", resting: 67, active: 135 },
+  { day: "Sat", resting: 72, active: 145 },
+  { day: "Sun", resting: 74, active: 130 },
+];
 
 const Analytics = () => {
   return (
@@ -98,12 +129,22 @@ const Analytics = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-64 flex items-center justify-center bg-muted/20 rounded-lg">
-                      <div className="text-center">
-                        <BarChart3 className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">Chart visualization would appear here</p>
-                        <p className="text-sm text-muted-foreground">Steps, calories, and activity data</p>
-                      </div>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={weeklyActivityData}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                          <XAxis dataKey="day" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                          <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: "hsl(var(--card))",
+                              border: "1px solid hsl(var(--border))",
+                              borderRadius: "0.5rem",
+                            }}
+                          />
+                          <Bar dataKey="steps" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
                   </CardContent>
                 </Card>
@@ -116,12 +157,33 @@ const Analytics = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-64 flex items-center justify-center bg-muted/20 rounded-lg">
-                      <div className="text-center">
-                        <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-muted-foreground">Heart rate trend chart</p>
-                        <p className="text-sm text-muted-foreground">Resting, active, and recovery rates</p>
-                      </div>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={heartRateData}>
+                          <defs>
+                            <linearGradient id="activeGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.4} />
+                              <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0} />
+                            </linearGradient>
+                            <linearGradient id="restingGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
+                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                          <XAxis dataKey="day" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                          <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: "hsl(var(--card))",
+                              border: "1px solid hsl(var(--border))",
+                              borderRadius: "0.5rem",
+                            }}
+                          />
+                          <Area type="monotone" dataKey="active" stroke="hsl(var(--destructive))" fill="url(#activeGradient)" strokeWidth={2} />
+                          <Area type="monotone" dataKey="resting" stroke="hsl(var(--primary))" fill="url(#restingGradient)" strokeWidth={2} />
+                        </AreaChart>
+                      </ResponsiveContainer>
                     </div>
                   </CardContent>
                 </Card>

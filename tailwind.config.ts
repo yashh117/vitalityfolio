@@ -58,6 +58,7 @@ export default {
 					dark: 'hsl(var(--medical-dark))',
 					glow: 'hsl(var(--medical-glow))'
 				},
+				'accent-2': 'hsl(var(--accent-2))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

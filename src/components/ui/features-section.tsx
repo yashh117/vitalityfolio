@@ -1,13 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Activity, Heart, Target, BarChart3, Shield, Clock } from "lucide-react";
+import { Activity, Heart, Target, BarChart3, Shield, Clock, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FeaturesSection = () => {
   const features = [
     {
       icon: Activity,
       title: "Activity Tracking",
-      description: "Monitor your daily activities, workouts, and calories burned with precision using advanced sensors and AI analysis."
+      description: "Monitor your daily activities, workouts, and calories burned with precision using advanced sensors and AI analysis.",
+      highlight: true
     },
     {
       icon: Heart,
@@ -37,16 +39,16 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-medical-light/5">
+    <section className="py-20 bg-background relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-3 py-1 rounded-full glass text-primary text-sm font-medium mb-4">
             Core Features
           </div>
           <h2 className="text-4xl font-bold text-foreground mb-4">
             Everything You Need for{" "}
-            <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+            <span className="text-gradient">
               Better Health
             </span>
           </h2>
@@ -55,24 +57,29 @@ const FeaturesSection = () => {
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
+        {/* Bento Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+          {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <Card 
+              <Card
                 key={feature.title}
-                className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border-0 bg-gradient-to-b from-card to-card/80 backdrop-blur-sm"
+                className={cn(
+                  "group relative overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border-border/60",
+                  feature.highlight
+                    ? "lg:col-span-2 lg:row-span-1 bg-gradient-to-br from-primary/10 via-card to-card"
+                    : "bg-card/80 backdrop-blur-sm"
+                )}
               >
-                <CardHeader className="text-center pb-4">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-glow mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="h-8 w-8 text-white" />
+                <CardHeader className="pb-4">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    <Icon className="h-7 w-7 text-white" />
                   </div>
                   <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
+                <CardContent>
                   <p className="text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
@@ -84,7 +91,7 @@ const FeaturesSection = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary/10 to-primary-glow/10 rounded-2xl p-8 border border-primary/20">
+          <div className="bg-gradient-to-r from-primary/10 to-accent-2/10 rounded-2xl p-8 border border-primary/20">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               Ready to Transform Your Health?
             </h3>
@@ -95,9 +102,11 @@ const FeaturesSection = () => {
               <Button
                 variant="hero"
                 size="lg"
+                className="group"
                 onClick={() => window.location.href = '/dashboard'}
               >
                 Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
                 variant="outline"

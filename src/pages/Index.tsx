@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navigation from "@/components/ui/navigation";
 import HeroSection from "@/components/ui/hero-section";
 import FeaturesSection from "@/components/ui/features-section";
@@ -5,9 +6,21 @@ import TeamSection from "@/components/ui/team-section";
 import ChatBot from "@/components/ui/chat-bot";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Star, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Star, ArrowRight, Activity } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -29,28 +42,38 @@ const Index = () => {
     }
   ];
 
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    toast({
+      title: "You're subscribed!",
+      description: "We'll send wellness tips and product updates to " + email,
+    });
+    setEmail("");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ChatBot />
-      
+
       <main>
         {/* Hero Section */}
         <HeroSection />
-        
+
         {/* Features Section */}
         <FeaturesSection />
-        
+
         {/* Testimonials */}
-        <section className="py-20 bg-gradient-to-b from-medical-light/5 to-background">
+        <section className="py-20 bg-background relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <div className="inline-flex items-center px-3 py-1 rounded-full glass text-primary text-sm font-medium mb-4">
                 What Our Users Say
               </div>
               <h2 className="text-4xl font-bold text-foreground mb-4">
                 Trusted by{" "}
-                <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+                <span className="text-gradient">
                   Health Enthusiasts
                 </span>
               </h2>
@@ -59,49 +82,57 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <Card key={testimonial.name} className="bg-gradient-to-br from-card to-card/80 hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                      "{testimonial.content}"
-                    </p>
-                    <div>
-                      <div className="font-semibold text-foreground">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <Carousel opts={{ align: "start", loop: true }} className="w-full">
+              <CarouselContent className="-ml-4">
+                {testimonials.map((testimonial) => (
+                  <CarouselItem key={testimonial.name} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Card className="h-full bg-card/80 backdrop-blur-sm border-border/60 hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-center mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                          ))}
+                        </div>
+                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                          "{testimonial.content}"
+                        </p>
+                        <div>
+                          <div className="font-semibold text-foreground">{testimonial.name}</div>
+                          <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center gap-2 mt-8">
+                <CarouselPrevious className="static translate-y-0" />
+                <CarouselNext className="static translate-y-0" />
+              </div>
+            </Carousel>
           </div>
         </section>
 
         {/* Team Section */}
         <TeamSection />
-        
+
         {/* Call to Action */}
-        <section className="py-20 bg-gradient-to-r from-primary/10 via-primary-glow/10 to-primary/10">
-          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-mesh relative overflow-hidden border-y border-border/60">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative">
             <h2 className="text-4xl font-bold text-foreground mb-6">
               Start Your Health Journey Today
             </h2>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Experience the power of AI-driven health insights with our comprehensive platform. 
+              Experience the power of AI-driven health insights with our comprehensive platform.
               Track, analyze, and optimize your wellness with the guidance of our expert team.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button variant="hero" size="lg" className="group">
+              <Button variant="hero" size="lg" className="group" onClick={() => window.location.href = '/dashboard'}>
                 Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" onClick={() => window.location.href = '/about'}>
                 Schedule a Demo
               </Button>
             </div>
@@ -109,19 +140,19 @@ const Index = () => {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-border/50">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">10k+</div>
+                <div className="text-3xl font-bold text-gradient mb-1">10k+</div>
                 <div className="text-sm text-muted-foreground">Happy Users</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">50M+</div>
+                <div className="text-3xl font-bold text-gradient mb-1">50M+</div>
                 <div className="text-sm text-muted-foreground">Data Points</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">99.9%</div>
+                <div className="text-3xl font-bold text-gradient mb-1">99.9%</div>
                 <div className="text-sm text-muted-foreground">Uptime</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">24/7</div>
+                <div className="text-3xl font-bold text-gradient mb-1">24/7</div>
                 <div className="text-sm text-muted-foreground">Support</div>
               </div>
             </div>
@@ -131,21 +162,32 @@ const Index = () => {
         {/* Footer */}
         <footer className="bg-card border-t border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+              <div className="lg:col-span-2">
                 <div className="flex items-center space-x-2 mb-4">
-                  <div className="p-2 bg-gradient-to-br from-primary to-primary-glow rounded-lg">
-                    <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
-                      <div className="w-3 h-3 bg-primary rounded-full"></div>
-                    </div>
+                  <div className="p-2 bg-gradient-to-br from-primary to-primary-glow rounded-xl shadow-md">
+                    <Activity className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <span className="text-xl font-bold text-foreground">VitalityFolio</span>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 max-w-xs">
                   Your comprehensive health tracking platform powered by AI and managed by healthcare experts.
                 </p>
+                <form onSubmit={handleSubscribe} className="flex gap-2 max-w-sm">
+                  <Input
+                    type="email"
+                    required
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-label="Email address"
+                  />
+                  <Button type="submit" variant="primary" size="sm">
+                    Subscribe
+                  </Button>
+                </form>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold text-foreground mb-4">Product</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -155,7 +197,7 @@ const Index = () => {
                   <li><a href="#" className="hover:text-primary transition-colors">API</a></li>
                 </ul>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold text-foreground mb-4">Company</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -165,7 +207,7 @@ const Index = () => {
                   <li><a href="#" className="hover:text-primary transition-colors">Terms</a></li>
                 </ul>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold text-foreground mb-4">Support</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -176,11 +218,11 @@ const Index = () => {
                 </ul>
               </div>
             </div>
-            
+
             <div className="border-t border-border pt-8 mt-8">
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <p className="text-sm text-muted-foreground">
-                  © 2024 VitalityFolio. All rights reserved.
+                  © 2026 VitalityFolio. All rights reserved.
                 </p>
                 <div className="flex space-x-6 mt-4 md:mt-0">
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
